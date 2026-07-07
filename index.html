@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funnel Max | Command Center</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #e0e0e0;
+            --accent-green: #00e676;
+            --accent-red: #ff5252;
+            --accent-blue: #2979ff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border-bottom: 4px solid var(--accent-blue);
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .blocked { background-color: rgba(255, 82, 82, 0.2); color: var(--accent-red); border: 1px solid var(--accent-red); }
+        .ok { background-color: rgba(0, 230, 118, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            box-sizing: border-box;
+            background: #2a2a2a;
+            color: white;
+        }
+        button {
+            background-color: var(--accent-blue);
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+        }
+        button:hover { background-color: #1c54b2; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📊 Funnel Max - Visão Analítica do Projeto</h1>
+        <p>Dashboard de Contingência e Acompanhamento</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="card">
+            <h2>🚨 Gargalo Atual (Caminho Crítico)</h2>
+            <p><strong>Dependência Externa:</strong> Link do Produtor</p>
+            <p><strong>Status da Operação Técnica:</strong> <span class="status-badge blocked">BLOQUEADO</span></p>
+            <p><strong>Tempo restante de SLA:</strong> 48 horas</p>
+            <hr style="border: 0.5px solid #333; margin: 15px 0;">
+            <p><em>*A Infraestrutura e Monetização aguardam destravamento deste bloco.</em></p>
+        </div>
+
+        <div class="card">
+            <h2>🔗 Pedágio de Onboarding (Protótipo)</h2>
+            <p>Simulação do formulário sugerido para evitar gargalos futuros.</p>
+            <input type="text" placeholder="Cole o link da Página de Vendas Final" id="linkInput">
+            <input type="number" placeholder="Comissão Acordada (Ex: 55)" id="comissaoInput">
+            <button onclick="alert('Link recebido! Acionando automação para o time de Infraestrutura (Slack + Jira).')">Liberar Operação (Simulação)</button>
+        </div>
+
+        <div class="card">
+            <h2>📈 Métrica de Validação (Abertura vs EPC)</h2>
+            <p>Análise da campanha anterior: Por que não descartar com 12% de abertura.</p>
+            <canvas id="epcChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Configuração do Gráfico usando Chart.js
+        const ctx = document.getElementById('epcChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Campanha (12% Abertura) - Real', 'Campanha Otimizada - Projeção'],
+                datasets: [
+                    {
+                        label: 'Taxa de Abertura (%)',
+                        data: [12, 25],
+                        backgroundColor: 'rgba(255, 82, 82, 0.7)',
+                    },
+                    {
+                        label: 'EPC Gerado (R$)',
+                        data: [1.10, 2.80], // Números hipotéticos
+                        backgroundColor: 'rgba(0, 230, 118, 0.7)',
+                    }
+                ]
+            },
+            options: {
+                scales: { y: { beginAtZero: true } },
+                plugins: { legend: { labels: { color: 'white' } } }
+            }
+        });
+    </script>
+</body>
+</html>
